@@ -15,6 +15,14 @@
 	* destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+function GameObject(attributes){
+	this.createdAt = attributes.createdAt.toString();
+	this.dimensions = attributes.dimensions;
+	this.destroy = function(){
+		return "Object was removed from the game";
+	}
+}
+
 /*
 	=== CharacterStats ===
 	* healthPoints
@@ -22,6 +30,16 @@
 	* takeDamage() // prototype method -> returns the string '<object name> took damage.'
 	* should inherit destroy() from GameObject's prototype
 */
+
+function CharacterStats(attributes){
+	GameObject.call(this, attributes);
+	this.healthPoints = attributes.healthPoints;
+	this.name = attributes.name;
+	this.takeDamage = function(){
+		return `${this.name} took damage.`;
+	}
+	// inherit destroy()
+}
 
 /*
 	=== Humanoid (Having an appearance or character resembling that of a human.) ===
@@ -32,7 +50,17 @@
 	* should inherit destroy() from GameObject through CharacterStats
 	* should inherit takeDamage() from CharacterStats
 */
- 
+
+function Humanoid(attributes){
+	CharacterStats.call(this, attributes);
+	this.team = attributes.team;
+	this.weapons = attributes.weapons.toString();
+	this.language = attributes.language;
+	this.greet = function(){
+		return `${this.name} offers a greeting in ${this.language}.`;
+	}
+}
+
 /*
 	* Inheritance chain: GameObject -> CharacterStats -> Humanoid
 	* Instances of Humanoid should have all of the same properties as CharacterStats and GameObject.
@@ -41,70 +69,70 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
-	const mage = new Humanoid({
-		createdAt: new Date(),
-		dimensions: {
-			length: 2,
-			width: 1,
-			height: 1,
-		},
-		healthPoints: 5,
-		name: 'Bruce',
-		team: 'Mage Guild',
-		weapons: [
-			'Staff of Shamalama',
-		],
-		language: 'Common Tongue',
-	});
 
-	const swordsman = new Humanoid({
-		createdAt: new Date(),
-		dimensions: {
-			length: 2,
-			width: 2,
-			height: 2,
-		},
-		healthPoints: 15,
-		name: 'Sir Mustachio',
-		team: 'The Round Table',
-		weapons: [
-			'Giant Sword',
-			'Shield',
-		],
-		language: 'Common Tongue',
-	});
+const mage = new Humanoid({
+	createdAt: new Date(),
+	dimensions: {
+		length: 2,
+		width: 1,
+		height: 1,
+	},
+	healthPoints: 5,
+	name: 'Bruce',
+	team: 'Mage Guild',
+	weapons: [
+		'Staff of Shamalama',
+	],
+	language: 'Common Tongue',
+});
 
-	const archer = new Humanoid({
-		createdAt: new Date(),
-		dimensions: {
-			length: 1,
-			width: 2,
-			height: 4,
-		},
-		healthPoints: 10,
-		name: 'Lilith',
-		team: 'Forest Kingdom',
-		weapons: [
-			'Bow',
-			'Dagger',
-		],
-		language: 'Elvish',
-	});
+const swordsman = new Humanoid({
+	createdAt: new Date(),
+	dimensions: {
+		length: 2,
+		width: 2,
+		height: 2,
+	},
+	healthPoints: 15,
+	name: 'Sir Mustachio',
+	team: 'The Round Table',
+	weapons: [
+		'Giant Sword',
+		'Shield',
+	],
+	language: 'Common Tongue',
+});
 
-	console.log(mage.createdAt); // Today's date
-	console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
-	console.log(swordsman.healthPoints); // 15
-	console.log(mage.name); // Bruce
-	console.log(swordsman.team); // The Round Table
-	console.log(mage.weapons); // Staff of Shamalama
-	console.log(archer.language); // Elvish
-	console.log(archer.greet()); // Lilith offers a greeting in Elvish.
-	console.log(mage.takeDamage()); // Bruce took damage.
-	console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+const archer = new Humanoid({
+	createdAt: new Date(),
+	dimensions: {
+		length: 1,
+		width: 2,
+		height: 4,
+	},
+	healthPoints: 10,
+	name: 'Lilith',
+	team: 'Forest Kingdom',
+	weapons: [
+		'Bow',
+		'Dagger',
+	],
+	language: 'Elvish',
+});
 
-	// Stretch task: 
-	// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.	
-	// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
-	// * Create two new objects, one a villain and one a hero and fight it out with methods!
+console.log(mage.createdAt); // Today's date
+console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
+console.log(swordsman.healthPoints); // 15
+console.log(mage.name); // Bruce
+console.log(swordsman.team); // The Round Table
+console.log(mage.weapons); // Staff of Shamalama
+console.log(archer.language); // Elvish
+console.log(archer.greet()); // Lilith offers a greeting in Elvish.
+console.log(mage.takeDamage()); // Bruce took damage.
+console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
+
+
+// Stretch task: 
+// * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.	
+// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Create two new objects, one a villain and one a hero and fight it out with methods!
