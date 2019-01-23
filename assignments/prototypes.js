@@ -18,9 +18,10 @@
 function GameObject(attributes){
 	this.createdAt = attributes.createdAt.toString();
 	this.dimensions = attributes.dimensions;
-	this.destroy = function(){
-		return "Object was removed from the game";
-	}
+}
+
+GameObject.prototype.destroy = function(){
+	return "Object was removed from the game";
 }
 
 /*
@@ -35,10 +36,11 @@ function CharacterStats(attributes){
 	GameObject.call(this, attributes);
 	this.healthPoints = attributes.healthPoints;
 	this.name = attributes.name;
-	this.takeDamage = function(){
-		return `${this.name} took damage.`;
-	}
-	// inherit destroy()
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+CharacterStats.prototype.takeDamage = function(){
+	return `${this.name} took damage.`;
 }
 
 /*
@@ -56,9 +58,11 @@ function Humanoid(attributes){
 	this.team = attributes.team;
 	this.weapons = attributes.weapons.toString();
 	this.language = attributes.language;
-	this.greet = function(){
-		return `${this.name} offers a greeting in ${this.language}.`;
-	}
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function(){
+	return `${this.name} offers a greeting in ${this.language}.`;
 }
 
 /*
