@@ -21,7 +21,7 @@ function GameObject(attributes){
 };
 
 GameObject.prototype.destroy = function(){
-	return "Object was removed from the game";
+	return `${this.name} was removed from the game`;
 };
 
 /*
@@ -232,9 +232,43 @@ Game.prototype.checkIfFinished = function(){
             'Dagger',
         ],
         language: 'Elvish',
+	});
+	
+	const hero2 = new Hero({
+        createdAt: new Date(),
+        dimensions: {
+            length: 2,
+            width: 2,
+            height: 2,
+        },
+        healthPoints: 15,
+        name: 'Christine2',
+        team: 'The Round Table2',
+        weapons: [
+            'Giant Sword',
+            'Shield',
+        ],
+        language: 'Common Tongue',
+	});
+	
+	const hero3 = new Hero({
+        createdAt: new Date(),
+        dimensions: {
+            length: 2,
+            width: 2,
+            height: 2,
+        },
+        healthPoints: 15,
+        name: 'Christine3',
+        team: 'The Round Table3',
+        weapons: [
+            'Giant Sword',
+            'Shield',
+        ],
+        language: 'Common Tongue',
     });
 
-    let currentGame = new Game([hero, villain], 0);
+    let currentGame = new Game([hero, villain, hero2, hero3], 0);
     while(!currentGame.checkIfFinished()){
         console.log(`Now it's player ${currentGame.currentPlayer+1} turn!`);
         if(currentGame.players[currentGame.currentPlayer].hitOpponent != undefined){
